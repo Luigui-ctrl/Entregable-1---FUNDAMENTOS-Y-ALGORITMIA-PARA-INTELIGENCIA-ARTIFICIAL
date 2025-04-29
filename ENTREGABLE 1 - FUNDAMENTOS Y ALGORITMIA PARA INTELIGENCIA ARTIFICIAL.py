@@ -63,7 +63,7 @@ def inverso_aditivo(A):
 
 # Ejemplo de uso
 if __name__ == "__main__":
-    # Se genera una matriz (aunque no se usa en propiedades, porque las propiedades son con vectores)
+    # Se genera una matriz
     matriz = generar_matriz(2, 3)
     print("Matriz generada (2x3):\n", matriz)
 
