@@ -58,12 +58,6 @@ def obtener_matriz(nombre="matriz"):
         columnas = int(input(f"Ingrese el número de columnas de la {nombre}: "))
         return crear_matriz(filas, columnas)
 
-def obtener_tres_vectores():
-    v1 = obtener_vector("vector 1")
-    v2 = obtener_vector("vector 2")
-    v3 = obtener_vector("vector 3")
-    return v1, v2, v3
-
 # Captura y validación
 
 def capturar_vector(nombre="vector"):
