@@ -4,9 +4,7 @@ import numpy as np
 ultimo_vector = None
 ultima_matriz = None
 
-# -------------------------
 # Generación de vectores o matrices
-# -------------------------
 
 def crear_matriz(filas, columnas, minimo=0, maximo=10):
     if filas <= 0 or columnas <= 0:
@@ -41,7 +39,7 @@ def seleccionar_modo_entrada(nombre="vector o matriz"):
         elif modo == "a":
             return "aleatorio"
         else:
-            print("⚠️ Opción inválida. Escriba 'm' o 'a'.")
+            print("Opción inválida. Escriba 'm' o 'a'.")
 
 def obtener_vector(nombre="vector"):
     modo = seleccionar_modo_entrada(nombre)
@@ -66,9 +64,7 @@ def obtener_tres_vectores():
     v3 = obtener_vector("vector 3")
     return v1, v2, v3
 
-# -------------------------
 # Captura y validación
-# -------------------------
 
 def capturar_vector(nombre="vector"):
     entrada = input(f"Introduzca los valores del {nombre} separados por espacios: ").strip().split()
@@ -84,9 +80,7 @@ def verificar_matriz(m):
     if m is None or m.ndim != 2 or np.any(np.isnan(m)) or m.size == 0:
         raise ValueError("Matriz inválida. Asegúrese de que sea bidimensional, sin NaN y con datos.")
 
-# -------------------------
 # Propiedades Algebraicas
-# -------------------------
 
 def propiedad_conmutativa(v1, v2, tipo="suma"):
     verificar_vector(v1)
@@ -103,48 +97,50 @@ def propiedad_conmutativa(v1, v2, tipo="suma"):
     else:
         raise ValueError("Operación inválida. Use 'suma' o 'multiplicacion'.")
 
-    print(f"\n📘 Comprobación de la propiedad conmutativa ({tipo}):")
+    print(f"\n Comprobación de la propiedad conmutativa ({tipo}):")
     print("Vector 1:", v1)
     print("Vector 2:", v2)
     print("Lado 1:", lado1)
     print("Lado 2:", lado2)
-    print("¿Se verifica?:", "✅ Sí" if np.array_equal(lado1, lado2) else "❌ No")
+    print("¿Se verifica?:", "Sí" if np.array_equal(lado1, lado2) else "No")
 
-def propiedad_asociativa(v1, v2, v3, tipo="suma"):
+def propiedad_asociativa(v1, v2, tipo="suma"):
     verificar_vector(v1)
     verificar_vector(v2)
-    verificar_vector(v3)
-    if not (v1.shape == v2.shape == v3.shape):
-        raise ValueError("Todos los vectores deben tener igual longitud.")
-    
+    if v1.shape != v2.shape:
+        raise ValueError("Ambos vectores deben tener el mismo tamaño.")
+
     if tipo == "suma":
-        lado1 = (v1 + v2) + v3
-        lado2 = v1 + (v2 + v3)
+        lado1 = (v1 + v2) + v2
+        lado2 = v1 + (v2 + v2)
     elif tipo == "multiplicacion":
-        lado1 = (v1 * v2) * v3
-        lado2 = v1 * (v2 * v3)
+        lado1 = (v1 * v2) * v2
+        lado2 = v1 * (v2 * v2)
     else:
         raise ValueError("Operación inválida. Use 'suma' o 'multiplicacion'.")
 
-    print(f"\n📗 Evaluando propiedad asociativa ({tipo}):")
+    print(f"\n Evaluando propiedad asociativa ({tipo}):")
+    print("Vector 1:", v1)
+    print("Vector 2:", v2)
     print("Lado 1:", lado1)
     print("Lado 2:", lado2)
-    print("¿Es correcta?:", "✅ Se cumple" if np.array_equal(lado1, lado2) else "❌ No se cumple")
+    print("¿Es correcta?:", "Se cumple" if np.array_equal(lado1, lado2) else "No se cumple")
 
-def propiedad_distributiva(v1, v2, v3):
+def propiedad_distributiva(v1, v2):
     verificar_vector(v1)
     verificar_vector(v2)
-    verificar_vector(v3)
-    if not (v1.shape == v2.shape == v3.shape):
-        raise ValueError("Los tres vectores deben tener dimensiones coincidentes.")
+    if v1.shape != v2.shape:
+        raise ValueError("Ambos vectores deben tener el mismo tamaño.")
 
-    lado1 = v1 * (v2 + v3)
-    lado2 = (v1 * v2) + (v1 * v3)
+    lado1 = v1 * (v2 + v1)
+    lado2 = (v1 * v2) + (v1 * v1)
 
-    print("\n📙 Verificación de la propiedad distributiva:")
+    print("\n Verificación de la propiedad distributiva:")
+    print("Vector 1:", v1)
+    print("Vector 2:", v2)
     print("Lado 1:", lado1)
     print("Lado 2:", lado2)
-    print("¿Resultado correcto?:", "✅ Sí" if np.array_equal(lado1, lado2) else "❌ No")
+    print("¿Resultado correcto?:", "Sí" if np.array_equal(lado1, lado2) else "No")
 
 def propiedad_inversa(v, tipo="suma"):
     verificar_vector(v)
@@ -161,28 +157,29 @@ def propiedad_inversa(v, tipo="suma"):
     else:
         raise ValueError("Operación inválida. Use 'suma' o 'multiplicacion'.")
 
-    print(f"\n📕 Demostración de la propiedad inversa ({tipo}):")
+    print(f"\n Demostración de la propiedad inversa ({tipo}):")
     print("Vector:", v)
     print("Inverso:", inverso)
     print("Resultado:", resultado)
     print("Valor esperado:", esperado)
-    print("¿Se cumple?:", "✅ Sí" if np.allclose(resultado, esperado) else "❌ No")
+    print("¿Se cumple?:", "Sí" if np.allclose(resultado, esperado) else "No")
 
-# -------------------------
 # Menú Interactivo
-# -------------------------
 
 def seleccionar_operacion():
-    operacion = input("Seleccione tipo de operación ('suma' o 'multiplicacion'): ").strip().lower()
-    if operacion not in ["suma", "multiplicacion"]:
-        raise ValueError("Operación inválida.")
-    return operacion
+    operacion = input("Seleccione tipo de operación ('s' para suma o 'm' para multiplicación): ").strip().lower()
+    if operacion == "s":
+        return "suma"
+    elif operacion == "m":
+        return "multiplicacion"
+    else:
+        raise ValueError("Operación inválida. Ingrese solamente 's' o 'm'.")
 
 def principal():
     global ultimo_vector, ultima_matriz
 
     while True:
-        print("\n===== MENÚ DE PROPIEDADES ALGEBRAICAS =====")
+        print("\n MENÚ DE PROPIEDADES ALGEBRAICAS")
         print("1. Crear vector (manual o aleatorio)")
         print("2. Crear matriz (manual o aleatoria)")
         print("3. Conmutativa")
@@ -195,11 +192,11 @@ def principal():
         try:
             if opcion == "1":
                 ultimo_vector = obtener_vector("vector")
-                print("✅ Vector generado:", ultimo_vector)
+                print("Vector generado:", ultimo_vector)
 
             elif opcion == "2":
                 ultima_matriz = obtener_matriz("matriz")
-                print("✅ Matriz generada:\n", ultima_matriz)
+                print("Matriz generada:\n", ultima_matriz)
 
             elif opcion == "3":
                 v1 = obtener_vector("vector 1")
@@ -208,13 +205,16 @@ def principal():
                 propiedad_conmutativa(v1, v2, tipo)
 
             elif opcion == "4":
-                v1, v2, v3 = obtener_tres_vectores()
+                v1 = obtener_vector("vector 1")
+                v2 = obtener_vector("vector 2")
                 tipo = seleccionar_operacion()
-                propiedad_asociativa(v1, v2, v3, tipo)
+                propiedad_asociativa(v1, v2, tipo)
 
             elif opcion == "5":
-                v1, v2, v3 = obtener_tres_vectores()
-                propiedad_distributiva(v1, v2, v3)
+                v1 = obtener_vector("vector 1")
+                v2 = obtener_vector("vector 2")
+                tipo = seleccionar_operacion()
+                propiedad_distributiva(v1, v2)
 
             elif opcion == "6":
                 v = obtener_vector("vector")
@@ -229,7 +229,7 @@ def principal():
                 print("Opción incorrecta, intente nuevamente.")
 
         except Exception as e:
-            print(f"⚠️  Error detectado: {e}")
+            print(f"Error detectado: {e}")
 
 if __name__ == "__main__":
     principal()
