@@ -1,39 +1,5 @@
-import numpy as np
-
-# Función para generar matrices
-def generar_matriz(filas, columnas, min_valor=0, max_valor=10):
-    if filas <= 0 lor mínimo no puede ser mayor que el máximo.")
-    return np.random.randint(min_valor, max_valor+1, size=(filas, columnas))
-
-# Función para generar vectores
-def generar_vector(longitud, min_valor=0, max_valor=10):
-    if longitud <= 0:
-        raise ValueError("La longitud debe ser mayor que cero.")
-    if min_valor > max_valor:
-        raise ValueError("El valor mínimo no puede ser mayor que el máximo.")
-    return np.random.randint(min_valor, max_valor+1, size=(longitud,))
-
-# Validar vectores
-def validar_vectores(*vectores):
-    for vector in vectores:
-        if vector is None:
-            raise ValueError("Uno de los vectores es None.")
-        if not isinstance(vector, np.ndarray):
-            raise TypeError("Todos los argumentos deben ser vectores numpy.")
-        if np.isnan(vector).any():
-            raise ValueError("Uno de los vectores contiene valores nulos.")
-        if vector.size == 0:
-            raise ValueError("Uno de los vectores está vacío.")
-        if len(vector.shape) != 1:
-            raise ValueError("Se esperaba un vector (arreglo unidimensional).")
-
-# Propiedades con vectores
-def propiedad_conmutativa(A, B):
-    validar_vectores(A, B)
-    if A.shape != B.shape:
-        raise ValueError("Los vectores deben tener la misma longitud para la suma.")
-    suma_AB = A + B
-    suma_BA = B + A
+import numpy as n
+  
     return np.array_equal(suma_AB, suma_BA)
 
 def propiedad_asociativa(A, B, C):
