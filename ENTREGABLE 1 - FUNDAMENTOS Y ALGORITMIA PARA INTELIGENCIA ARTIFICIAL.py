@@ -2,10 +2,7 @@ import numpy as np
 
 # Función para generar matrices
 def generar_matriz(filas, columnas, min_valor=0, max_valor=10):
-    if filas <= 0 or columnas <= 0:
-        raise ValueError("Las dimensiones deben ser mayores que cero.")
-    if min_valor > max_valor:
-        raise ValueError("El valor mínimo no puede ser mayor que el máximo.")
+    if filas <= 0 lor mínimo no puede ser mayor que el máximo.")
     return np.random.randint(min_valor, max_valor+1, size=(filas, columnas))
 
 # Función para generar vectores
